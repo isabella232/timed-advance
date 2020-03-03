@@ -1,0 +1,163 @@
+/*
+    Labels and hints
+    ------------------------
+*/
+
+.label {
+    /* add style rules here to change how the label appears */
+    margin: .75rem 0;
+}
+
+.hint {
+    /* add style rules here to change how the hint appears */
+    margin: .5rem 0;
+    color: rgba(0,0,0,.65);
+    font-style: italic;
+}
+
+.form-control { /*Input box*/
+    border-radius: 0!important;
+    box-shadow: none;
+    display: block;
+    width: 95%;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;overflow: hidden;
+    overflow-wrap: break-word;
+    resize: horizontal;
+    height: 20px;
+    outline: none;
+    font-family: inherit;
+    font: inherit;
+    margin: 0;
+}
+
+.form-control:focus { /*Input box when focused*/
+    border-color: #047cc2!important;
+    box-shadow: none;
+}
+
+/* 
+    Choices
+    ------------------------
+*/
+
+/* choice spacing for web Collect */
+
+.web-collect .choice-container {
+    margin: .2rem 0;
+}
+.web-collect .choice-container .choice-label {
+    padding: .5rem;
+}
+
+/* choice spacing for Android and iOS Collect */
+
+.android-collect .choice-container,
+.ios-collect .choice-container {
+    margin: .1rem 0;
+}
+.android-collect .choice-container .choice-label,
+.ios-collect .choice-container .choice-label {
+    padding: .9rem 0;
+}
+
+/* choice container layout */
+
+.choice-container {
+    display: flex;
+    align-items: baseline;
+}
+.choice-input {
+    margin: 0 .5rem;
+    cursor: pointer;
+}
+.choice-label {
+    cursor: pointer;
+    flex: 1;
+}
+
+/* disabled fields */
+
+.choice-input:disabled {
+    cursor: default;
+}
+.choice-input:disabled + .choice-label {
+    opacity: .5;
+    cursor: default;
+}
+
+/* choices with images */
+
+.web-collect .choice-label-image {
+    max-width: 100%;
+}
+/* images in choice labels are displayed centered in android and ios collect */
+.android-collect .choice-label,
+.ios-collect .choice-label {
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    justify-content: center;
+}
+.android-collect .choice-label-text,
+.ios-collect .choice-label.text {
+    width: 100%;
+}
+.android-collect .choice-label-image,
+.ios-collect .choice-label-image {
+    max-width: 75%; 
+}
+
+/*
+    Appearance-specific styles
+    ------------------------
+*/
+
+/* 'quick' appearance' */
+
+.choice-container.appearance-quick {
+    background-color: #EEE;
+}
+.choice-container.appearance-quick:hover {
+    background-color: #E1F4FD;
+}
+.appearance-quick .quick-appearance-icon {
+    display: block;
+    float: right;
+    fill: rgba(0,0,0,.65);
+    height: 1em;
+    width: 1em;
+}
+
+/* 'minimal' appearance */
+
+#select-dropdown-container {
+    display: none;
+    width: 100%;
+    height: 2rem;
+    border: 1px solid #2EA3CF;
+}
+
+/*
+    Other global styles
+    ------------------------
+*/
+
+/* hide SVG symbol definitions */
+.symbol {
+    display: none;
+}
+
+.has-error em.control-message {
+    font-weight: 100;
+    background: #f56954;
+    display: block;
+    width: 96%;
+    color: #FFF;
+    padding: 5px 10px;
+}

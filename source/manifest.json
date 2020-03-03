@@ -1,0 +1,8 @@
+{
+	"name" : "Timed advance",
+	"author" : "Dobility",
+	"version": "1.0.0",
+	"supportedFieldTypes": ["select_one", "select_multiple", "text", "integer", "decimal"],
+	"hideDefaultRequiredMessage": true,
+	"hideDefaultConstraintMessage": true
+}
