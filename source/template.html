@@ -1,5 +1,6 @@
-<link rel="stylesheet" type="text/css" href="style.css">
-<script src="script.js" defer></script>
+<!--link rel="stylesheet" type="text/css" href="style.css">
+<script src="script.js" defer></script-->
+<table class="label default-question-text-size timer"><tr><td style="padding-left:30px;">TIME LEFT: </td><td id="timerdisp" style="width: 30px;text-align:right"></td><td id="unitdisp" style="padding-right:30px;padding-left:5px"></td></tr></table>
 <div class="label default-question-text-size">{{{LABEL}}}</div>
 
 <!-- If there is an image specified in the media:image column, show it here -->
@@ -33,10 +34,11 @@
                id="field"
                class="form-control"
                placeholder="Your answer here..."
+               autocomplete="off"
                onfocus="cursorToEnd(this)" />
   <form class="choices-container" id="radio-buttons-container">
     {{#CHOICES}}
-    <div class="choice-container">
+    <div class="choice-container" id="choicevalue{{CHOICE_VALUE}}">
       <input
              type="radio"
              value="{{CHOICE_VALUE}}"
