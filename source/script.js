@@ -120,12 +120,13 @@ if ((fieldType == 'select_one') || (fieldType == 'select_multiple')) {
 
     // Define what happens when the user attempts to clear the response
     function clearAnswer() {
-        document.querySelector('input[name="opt"]:checked').checked = false;
+        for(b of buttons){
+            b.checked = false;
+        }
     }
 
     // Save the user's response (update the current answer)
     function change() {
-        console.log("Clicked on " + this.value);
         let selectedButtons = [];
         for (let i = 0; i < numButtons; i++) {
             if (buttons[i].checked) {
@@ -136,7 +137,6 @@ if ((fieldType == 'select_one') || (fieldType == 'select_multiple')) {
         setAnswer(currentAnswer);
         // If the appearance is 'quick', then also progress to the next field
         if (appearance.includes("quick") == true) {
-            console.log("Mark 4");
             goToNextField();
         }
     }
@@ -210,13 +210,10 @@ function handleRequiredMessage(message) {
 function checkComplete(cur) {
     if (Array.isArray(cur)) {
         if (cur.length != 0) {
-            console.log("Mark 4");
             goToNextField();
         }
     }
     else if (cur != null) {
-        console.log("Mark 3");
-        console.log(cur);
         goToNextField();
     }
 }
@@ -239,13 +236,9 @@ function timer() {
         timeLeft = 0;
         timerDisp.innerHTML = String(Math.ceil(timeLeft / round));
 
-        console.log("Current answer:")
-        console.log(currentAnswer);
         if ((currentAnswer == null) || (Array.isArray(currentAnswer) && (currentAnswer.length == 0))) {
             setAnswer(missed);
-            console.log("Mark 1");
         }
-        console.log("Mark 2");
         goToNextField();
     }
     timerDisp.innerHTML = String(Math.ceil(timeLeft / round));
