@@ -49,7 +49,7 @@ var currentAnswer;
 
 var startTime = Date.now(); //This will get an actual value when the timer starts in startStopTimer();
 var timeStart = 10000; //Default values may be overwritten depending on the number of paramaters given,
-var unit = ' s'; //Default, may be changed
+var unit = 's'; //Default, may be changed
 var round = 1000; //Default, may be changed
 var missed = -99; //Default, may be changed
 var timeLeft; //Starts this way for the display.
@@ -62,12 +62,15 @@ switch (numParam) {
         unit = fieldProperties.PARAMETERS[1].value;
 
         if (unit == 'ms') {
+            unit = 'milliseconds'
             round = 1;
         }
         else if (unit == 'cs') {
+            unit = 'centiseconds'
             round = 10;
         }
         else if (unit == 'ds') {
+            unit = 'deciseconds'
             round = 100;
         }
         else {
