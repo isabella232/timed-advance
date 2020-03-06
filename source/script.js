@@ -157,6 +157,28 @@ if ((fieldType == 'select_one') || (fieldType == 'select_multiple')) {
     }
 }
 else { //A text, integer, or decimal field
+    if (fieldType == 'integer') {
+        textBox.inputmode = 'numeric';
+        textBox.type = 'number';
+    }
+    else if (fieldType == 'decimal') {
+        textBox.inputmode = 'decimal';
+        textBox.type = 'number';
+    }
+    else if (fieldType == 'text') {
+        if (appearance.includes('numbers_phone')) {
+            textBox.inputmode = 'tel';
+            textBox.type = 'tel';
+        }
+        else if (appearance.includes('numbers_decimal')) {
+            textBox.inputmode = 'decimal';
+            textBox.type = 'number';
+        }
+        else if (appearance.includes('numbers')) {
+            textBox.inputmode = 'numeric';
+            textBox.type = 'number';
+        }
+    }
     currentAnswer = fieldProperties.CURRENT_ANSWER;
     checkComplete(currentAnswer);
     choiceDiv.style.display = 'none';
