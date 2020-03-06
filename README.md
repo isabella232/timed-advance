@@ -51,6 +51,7 @@ To create your own field plug-in using this as a template, follow these steps:
 There are two parameters, but they are both optional:
 1. The time in seconds until the field auto-advances (no matter the unit used, always specify this value in seconds). Default: 10 seconds
 1. The unit that will be displayed. Default: seconds
+
 You can use the following display units:
 
 |**Abbr.**|**Full name**|**Unit in 1 second**|
