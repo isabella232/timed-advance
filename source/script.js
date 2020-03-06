@@ -120,7 +120,7 @@ if ((fieldType == 'select_one') || (fieldType == 'select_multiple')) {
 
     // Define what happens when the user attempts to clear the response
     function clearAnswer() {
-        for(b of buttons){
+        for (b of buttons) {
             b.checked = false;
         }
     }
