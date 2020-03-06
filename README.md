@@ -61,6 +61,18 @@ You can use the following display units:
 |`cs`|centiseconds|100
 |`ms`|milliseconds|1000
 
+For example, if you would like the field to move forward after 20 seconds, you can use this *appearance*:
+
+    timedadvance(duration=20)
+
+If you would like the time to be displayed in milliseconds, you can use this *appearance*:
+
+    timedadvance(duration=20, unit='ms')
+
+If the field is a *select_one*, and you would like it to have the `quick` appearance, and the field should last 15 seconds, you can use this *appearance*:
+
+    quick timedadvance(duration=15)
+
 ## More resources
 
 * **Test form**  
