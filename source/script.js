@@ -90,7 +90,7 @@ if ((fieldType == 'select_one') || (fieldType == 'select_multiple')) {
     for (var i = 0; i < numButtons; i++) {
         choiceLabels[i].innerHTML = choices[i].CHOICE_LABEL; //Gives each choice its HTML style
 
-        if(fieldType == 'select_multiple'){
+        if (fieldType == 'select_multiple') {
             buttons[i].type = "checkbox";
         }
 
