@@ -3,6 +3,14 @@
 *This plug-in is currently being tested, but has so far worked well.*
 
 
+![Quick appearance](extras/preview-images/quick.png)  
+*select_one* with "quick" *appearance*
+
+
+| numeric | select_one | select_multiple |
+| --- | --- | --- |
+| <img src="extras/preview-images/numeric.png" alt="numeric" title="numeric" width="100px"/> | <img src="extras/preview-images/select_one.png" alt="select_one" title="select_one" width="100px"/> | <img src="extras/preview-images/select_multiple.png" alt="select_multiple" title="select_multiple" width="100px"/> |
+
 ## Description
 
 This plug-in sets the field to auto-advance after a set period of time has passed, displaying that timer. It supports all five plug-in field types.
