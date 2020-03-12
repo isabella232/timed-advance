@@ -40,10 +40,13 @@ var timerDisp = document.querySelector('#timerdisp');
 var unitDisp = document.querySelector('#unitdisp');
 var numButtons = buttons.length;
 
+var infoDiv = document.querySelector('#info');
+
 var fieldType = fieldProperties.FIELDTYPE;
 var appearance = fieldProperties.APPEARANCE;
 var parameters = fieldProperties.PARAMETERS;
 var numParam = parameters.length;
+var leftoverTime = getFieldMetadata();
 var error = false;
 var complete = false;
 var currentAnswer;
@@ -82,7 +85,12 @@ switch (numParam) {
         timeStart = parameters[0].value * 1000; //Time limit on each field in milliseconds\
 }
 
-timeLeft = timeStart;
+if(leftoverTime == null){
+    timeLeft = timeStart;
+}
+else{
+    timeLeft = parseInt(leftoverTime);
+}
 unitDisp.innerHTML = unit;
 
 
@@ -297,11 +305,11 @@ function timer() {
         testing("Mark 4");
         goToNextField();
     }
-    //setFieldMetadata(timeLeft);
+    setFieldMetadata(timeLeft);
     timerDisp.innerHTML = String(Math.ceil(timeLeft / round));
 }
 
-/*function testing(message){
+function testing(message){
     console.log(message);
     infoDiv.innerHTML = message;
-}*/
+}
