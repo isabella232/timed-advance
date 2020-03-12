@@ -32,6 +32,7 @@ var buttons = document.querySelectorAll('input[name="opt"]');
 var formGroup = document.querySelector('.form-group');
 var controlMessage = document.querySelector('.control-message');
 var textBox = document.querySelector('#field');
+var formattedSpan = document.querySelector('#formatted');
 var choiceDiv = document.querySelector('#radio-buttons-container');
 var choiceContainers = document.querySelectorAll(".choice-container");
 var choiceLabels = document.querySelectorAll('#choicelabels');
@@ -80,6 +81,7 @@ switch (numParam) {
     case 1:
         timeStart = parameters[0].value * 1000; //Time limit on each field in milliseconds\
 }
+
 timeLeft = timeStart;
 unitDisp.innerHTML = unit;
 
@@ -87,6 +89,7 @@ unitDisp.innerHTML = unit;
 if ((fieldType == 'select_one') || (fieldType == 'select_multiple')) {
     currentAnswer = [];
     textBox.style.display = 'none';
+    formattedSpan.style.display = 'none';
     var choices = fieldProperties.CHOICES;
     var numChoices = choices.length;
     var choiceValues = [];
@@ -140,6 +143,7 @@ if ((fieldType == 'select_one') || (fieldType == 'select_multiple')) {
         setAnswer(currentAnswer);
         // If the appearance is 'quick', then also progress to the next field
         if (appearance.includes("quick") == true) {
+            testing("Mark 1")
             goToNextField();
         }
     }
@@ -205,7 +209,30 @@ else { //A text, integer, or decimal field
     textBox.oninput = function () {
         formGroup.classList.remove('has-error');
         controlMessage.innerHTML = '';
-        currentAnswer = textBox.value;
+        currentAnswer = textBox.value.toString();
+
+        if (appearance.includes('show_formatted')) {
+            let pointLoc = currentAnswer.indexOf('.');
+
+            if (pointLoc == -1) {
+                formattedSpan.innerHTML = currentAnswer.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
+            else {
+                let beforePoint = currentAnswer.substring(0, pointLoc).replace(/\B(?=(\d{3})+(?!\d))/g, ","); //Before the decimal point
+                let midPoint = currentAnswer.substring(pointLoc + 1, pointLoc + 3); //The first two digits after the decimal point; this is because the first two digits after the decimal point are the "tenths" and "hundredths", while after that is "thousandths"
+                let afterPoint = currentAnswer.substring(pointLoc + 3, currentAnswer.length).replace(/\B(?<=(^(\d{3})+))/g, ","); //After the first two digits after the decimal point
+                let total = beforePoint;
+
+                if (midPoint != '') { //Adds the decimal point only if it is needed
+                    total += '.' + midPoint;
+                    if (afterPoint != '') { //Adds the comma after "midPoint" and the rest only if they are needed
+                        total += ',' + afterPoint;
+                    }
+                }
+                formattedSpan.innerHTML = total;
+            }
+        }
+
         setAnswer(currentAnswer);
     }
 }
@@ -233,12 +260,15 @@ function handleRequiredMessage(message) {
 }
 
 function checkComplete(cur) {
+    testing("Current answer:" + cur)
     if (Array.isArray(cur)) {
         if (cur.length != 0) {
+            testing("Mark 2");
             goToNextField();
         }
     }
     else if (cur != null) {
+        testing("Mark 3");
         goToNextField();
     }
 }
@@ -264,7 +294,14 @@ function timer() {
         if ((currentAnswer == null) || (Array.isArray(currentAnswer) && (currentAnswer.length == 0))) {
             setAnswer(missed);
         }
+        testing("Mark 4");
         goToNextField();
     }
+    //setFieldMetadata(timeLeft);
     timerDisp.innerHTML = String(Math.ceil(timeLeft / round));
 }
+
+/*function testing(message){
+    console.log(message);
+    infoDiv.innerHTML = message;
+}*/

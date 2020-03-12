@@ -30,7 +30,7 @@ This plug-in sets the field to auto-advance after a set period of time has passe
 | `numbers` appearance | Yes (`text` only) |
 | `numbers_decimal` appearance | Yes (`text` only) |
 | `numbers_phone` appearance | Yes (`text` only) |
-| `show_formatted` appearance | No |
+| `show_formatted` appearance | Yes (`text`, `integer`, and `decimal` only) |
 | `quick` appearance | Yes (`select_one` only) |
 | `minimal` appearance | No |
 | `compact` appearance | No |
