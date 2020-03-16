@@ -15,7 +15,7 @@
 
 This plug-in sets the field to auto-advance after a set period of time has passed, displaying that timer. It supports all five plug-in field types.
 
-If a respondent attempts to go back to a field with this plug-in that has already been completed, the field will auto-advance (unless parameter 4 is equal to `1`, and there was time left, see **Parameters** below).
+If a respondent attempts to go back to a field with this plug-in that has already been completed, the field will auto-advance (unless parameter 4 is equal to `1` and there was time left, see **Parameters** below).
 
 ## Default SurveyCTO feature support
 
@@ -63,8 +63,8 @@ There are four parameters, but all of them are optional:
 |---|---|---|---|
 |1.|`duration`|Time in seconds before the field auto-advances. No matter what unit is used for parameter 2, you should always enter the duration in seconds.|`10`|
 |2.|`unit`|Unit to be displayed for the time remaining. The time will be shown as the correct converted version. For example, if the start time is 15 seconds, and the unit is `'ms'` for milliseconds, the time will be displayed at the start as `15000`.|`'s'`|
-|3.|`pass`|The value the field will be given if time ran out before an answer was given.|`-99`|
-|4.|`continue`|Whether a respondent can return to a field and continue with the time they have left. For example, if there was 5 seconds remaining when they swiped forward, they can return to that field and work with that remaining 5 seconds. To do this, give this parameter a value of `1`.|`0`|
+|3.|`pass`|The value the field will be given if time runs out before an answer is given.|`-99`|
+|4.|`continue`|Whether a respondent can return to a field and continue with the time they have left. For example, if there was 5 seconds remaining when they swiped forward, they can return to that field and work with that remaining 5 seconds. To allow this, give this parameter a value of `1`.|`0`|
 
 For parameter 2, you can use the following display units:
 
