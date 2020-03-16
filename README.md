@@ -15,6 +15,8 @@
 
 This plug-in sets the field to auto-advance after a set period of time has passed, displaying that timer. It supports all five plug-in field types.
 
+If a respondent attempts to go back to a field with this plug-in that has already been completed, the field will auto-advance (unless parameter 4 is equal to `1`, and there was time left, see **Parameters** below).
+
 ## Default SurveyCTO feature support
 
 | Feature / Property | Support |
@@ -56,11 +58,15 @@ To create your own field plug-in using this as a template, follow these steps:
 **Important:** When using on a `select_one` or `select_multiple` field, you need to include a choice with the value of `-99`. This choice will be hidden by the plug-in, but it will be selected if the time runs out without a choice selected.
 
 ## Parameters
-There are two parameters, but they are both optional:
-1. The time in seconds until the field auto-advances (no matter the unit used, always specify this value in seconds). Default: 10 seconds
-1. The unit that will be displayed. Default: seconds
+There are four parameters, but all of them are optional:
+|**Number**|**Name**|**Description**|**Default**|
+|---|---|---|---|
+|1.|`duration`|Time in seconds before the field auto-advances. No matter what unit is used for parameter 2, you should always enter the duration in seconds.|`10`|
+|2.|`unit`|Unit to be displayed for the time remaining. The time will be shown as the correct converted version. For example, if the start time is 15 seconds, and the unit is `'ms'` for milliseconds, the time will be displayed at the start as `15000`.|`'s'`|
+|3.|`pass`|The value the field will be given if time ran out before an answer was given.|`-99`|
+|4.|`continue`|Whether a respondent can return to a field and continue with the time they have left. For example, if there was 5 seconds remaining when they swiped forward, they can return to that field and work with that remaining 5 seconds. To do this, give this parameter a value of `1`.|`0`|
 
-You can use the following display units:
+For parameter 2, you can use the following display units:
 
 |**Abbr.**|**Full name**|**Unit in 1 second**|
 |:---|:---|:---|
@@ -77,9 +83,13 @@ If you would like the time to be displayed in milliseconds, you can use this *ap
 
     timedadvance(duration=20, unit='ms')
 
-If the field is a *select_one*, and you would like it to have the `quick` appearance, and the field should last 15 seconds, you can use this *appearance*:
+If the field is of type *select_one*, you would like it to have the `quick` appearance, and the field should last 15 seconds, you can use this *appearance*:
 
     quick timedadvance(duration=15)
+
+If you would like the respondent to have 15 seconds to complete the field, but they can return to it later to change their answer with their remaining time, you can use this *appearance*:
+
+    quick timedadvance(duration=15, unit='s', pass=-99, continue=1)
 
 ## More resources
 
