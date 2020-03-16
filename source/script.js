@@ -46,12 +46,12 @@ var fieldType = fieldProperties.FIELDTYPE;
 var appearance = fieldProperties.APPEARANCE;
 var parameters = fieldProperties.PARAMETERS;
 var numParam = parameters.length;
-var leftoverTime = fieldProperties.METADATA;
+var leftoverTime = getMetaData();
 var error = false;
 var complete = false;
 var currentAnswer;
 
-var startTime = Date.now(); //This will get an actual value when the timer starts in startStopTimer();
+var startTime; //This will get an actual value when the timer starts in startStopTimer();
 var timeStart = 10000; //Default values may be overwritten depending on the number of paramaters given,
 var unit = 's'; //Default, may be changed
 var round = 1000; //Default, may be changed
@@ -85,11 +85,16 @@ switch (numParam) {
         timeStart = parameters[0].value * 1000; //Time limit on each field in milliseconds\
 }
 
-if(leftoverTime == null){
+if (leftoverTime == 0) {
+    goToNextField();
+}
+else if (leftoverTime == null) {
+    startTime = Date.now();
     timeLeft = timeStart;
 }
-else{
+else {
     timeLeft = parseInt(leftoverTime);
+    startTime = Date.now() - (timeStart - timeLeft);
 }
 unitDisp.innerHTML = unit;
 
@@ -117,7 +122,7 @@ if ((fieldType == 'select_one') || (fieldType == 'select_multiple')) {
         }
     }
 
-    checkComplete(currentAnswer);
+    //checkComplete(currentAnswer);
 
     var missedChoice = choiceValues.indexOf(String(missed));
     if (missedChoice == -1) {
@@ -195,7 +200,7 @@ else { //A text, integer, or decimal field
         }
     }
     currentAnswer = fieldProperties.CURRENT_ANSWER;
-    checkComplete(currentAnswer);
+    //checkComplete(currentAnswer);
     choiceDiv.style.display = 'none';
 
     function clearAnswer() {
@@ -267,7 +272,7 @@ function handleRequiredMessage(message) {
     handleConstraintMessage(message)
 }
 
-function checkComplete(cur) {
+/*function checkComplete(cur) {
     testing("Current answer:" + cur)
     if (Array.isArray(cur)) {
         if (cur.length != 0) {
@@ -279,7 +284,7 @@ function checkComplete(cur) {
         testing("Mark 3");
         goToNextField();
     }
-}
+}*/
 
 ////////////////////////////
 ///////////Time functions
@@ -302,14 +307,15 @@ function timer() {
         if ((currentAnswer == null) || (Array.isArray(currentAnswer) && (currentAnswer.length == 0))) {
             setAnswer(missed);
         }
-        setFieldMetadata(0);
+        setMetaData(0);
         goToNextField();
     }
-    setFieldMetadata(timeLeft);
+    setMetaData(timeLeft);
+
     timerDisp.innerHTML = String(Math.ceil(timeLeft / round));
 }
 
-function testing(message){
+function testing(message) {
     console.log(message);
     infoDiv.innerHTML = message;
 }
