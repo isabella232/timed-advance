@@ -46,7 +46,7 @@ var fieldType = fieldProperties.FIELDTYPE;
 var appearance = fieldProperties.APPEARANCE;
 var parameters = fieldProperties.PARAMETERS;
 var numParam = parameters.length;
-var leftoverTime = getFieldMetadata();
+var leftoverTime = fieldProperties.METADATA;
 var error = false;
 var complete = false;
 var currentAnswer;
@@ -302,7 +302,7 @@ function timer() {
         if ((currentAnswer == null) || (Array.isArray(currentAnswer) && (currentAnswer.length == 0))) {
             setAnswer(missed);
         }
-        testing("Mark 4");
+        setFieldMetadata(0);
         goToNextField();
     }
     setFieldMetadata(timeLeft);
