@@ -22,9 +22,24 @@ var fieldProperties = {
             "value": "s"
         }
     ],
-    "CURRENT_ANSWER": undefined
+    "CURRENT_ANSWER": undefined,
+    "METADATA": 9000
 }
-fieldProperties.CHOICES[0] = new Choice(0, 0, "Hi");
+
+function getMetaData(){
+    return fieldProperties.METADATA;
+}
+
+function setMetaData(value){
+    fieldProperties.METADATA = value;
+}
+
+//fieldProperties.CHOICES[0] = new Choice(0, 0, "Hi");
+
+/*function testing(message) {
+    console.log(message);
+    infoDiv.innerHTML = message;
+}*/
 //*/
 
 // Find the input element
@@ -46,7 +61,7 @@ var fieldType = fieldProperties.FIELDTYPE;
 var appearance = fieldProperties.APPEARANCE;
 var parameters = fieldProperties.PARAMETERS;
 var numParam = parameters.length;
-var leftoverTime = getMetaData();
+var leftoverTime;
 var error = false;
 var complete = false;
 var currentAnswer;
@@ -60,10 +75,14 @@ var timeLeft; //Starts this way for the display.
 var timePassed = 0; //Time passed so far
 
 switch (numParam) {
+    case 4:
+        if(parameters[3].value == 1){
+            leftoverTime = getMetaData();
+        }
     case 3:
-        missed = fieldProperties.PARAMETERS[2].value;
+        missed = parameters[2].value;
     case 2:
-        unit = fieldProperties.PARAMETERS[1].value;
+        unit = parameters[1].value;
 
         if (unit == 'ms') {
             unit = 'milliseconds'
@@ -85,16 +104,25 @@ switch (numParam) {
         timeStart = parameters[0].value * 1000; //Time limit on each field in milliseconds\
 }
 
-if (leftoverTime == 0) {
-    goToNextField();
+
+currentAnswer = fieldProperties.CURRENT_ANSWER;
+
+if(currentAnswer == null){ //This is so if the enumerator/respondents swipes backward then forward, the timer does not reset.
+    leftoverTime = getMetaData(); //Metadata is how much time was previously left on the timer for this field
 }
-else if (leftoverTime == null) {
+
+if (leftoverTime == null) {
     startTime = Date.now();
     timeLeft = timeStart;
+    checkComplete(currentAnswer);
+}
+else if (leftoverTime <= 0) {
+    goToNextField();
 }
 else {
     timeLeft = parseInt(leftoverTime);
     startTime = Date.now() - (timeStart - timeLeft);
+    
 }
 unitDisp.innerHTML = unit;
 
@@ -121,8 +149,6 @@ if ((fieldType == 'select_one') || (fieldType == 'select_multiple')) {
             currentAnswer.push(choiceValue);
         }
     }
-
-    //checkComplete(currentAnswer);
 
     var missedChoice = choiceValues.indexOf(String(missed));
     if (missedChoice == -1) {
@@ -156,7 +182,6 @@ if ((fieldType == 'select_one') || (fieldType == 'select_multiple')) {
         setAnswer(currentAnswer);
         // If the appearance is 'quick', then also progress to the next field
         if (appearance.includes("quick") == true) {
-            testing("Mark 1")
             goToNextField();
         }
     }
@@ -199,8 +224,6 @@ else { //A text, integer, or decimal field
             textBox.type = 'number';
         }
     }
-    currentAnswer = fieldProperties.CURRENT_ANSWER;
-    //checkComplete(currentAnswer);
     choiceDiv.style.display = 'none';
 
     function clearAnswer() {
@@ -250,6 +273,10 @@ else { //A text, integer, or decimal field
     }
 }
 
+if (!error) {
+    setInterval(timer, 1);
+}
+
 function cursorToEnd(el) { //Moves cursor to end of text in text box (incondistent in non-text fields)
     if (typeof el.selectionStart == "number") {
         el.selectionStart = el.selectionEnd = el.value.length;
@@ -262,7 +289,6 @@ function cursorToEnd(el) { //Moves cursor to end of text in text box (incondiste
     }
 }
 
-
 function handleConstraintMessage(message) {
     formGroup.classList.add('has-error');
     controlMessage.innerHTML = message;
@@ -272,24 +298,15 @@ function handleRequiredMessage(message) {
     handleConstraintMessage(message)
 }
 
-/*function checkComplete(cur) {
-    testing("Current answer:" + cur)
+function checkComplete(cur) {
     if (Array.isArray(cur)) {
         if (cur.length != 0) {
-            testing("Mark 2");
             goToNextField();
         }
     }
     else if (cur != null) {
-        testing("Mark 3");
         goToNextField();
     }
-}*/
-
-////////////////////////////
-///////////Time functions
-if (!error) {
-    setInterval(timer, 1);
 }
 
 
@@ -313,9 +330,4 @@ function timer() {
     setMetaData(timeLeft);
 
     timerDisp.innerHTML = String(Math.ceil(timeLeft / round));
-}
-
-function testing(message) {
-    console.log(message);
-    infoDiv.innerHTML = message;
 }
