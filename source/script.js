@@ -254,17 +254,22 @@ else { //A text, integer, or decimal field
                 formattedSpan.innerHTML = currentAnswer.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             }
             else {
-                let beforePoint = currentAnswer.substring(0, pointLoc).replace(/\B(?=(\d{3})+(?!\d))/g, ","); //Before the decimal point
-                let midPoint = currentAnswer.substring(pointLoc + 1, pointLoc + 3); //The first two digits after the decimal point; this is because the first two digits after the decimal point are the "tenths" and "hundredths", while after that is "thousandths"
-                let afterPoint = currentAnswer.substring(pointLoc + 3, currentAnswer.length).replace(/\B(?<=(^(\d{3})+))/g, ","); //After the first two digits after the decimal point
+                let beforePoint = answer.substring(0, pointLoc).replace(/\B(?=(\d{3})+(?!\d))/g, ","); //Before the decimal point
+    
+                //The part below adds commas to the numbers after the decimal point. Unfortunately, a lookbehind assersion breaks the JS in iOS right now, so this has been commented out for now.
+                /*let midPoint = answer.substring(pointLoc + 1, pointLoc + 3); //The first two digits after the decimal point; this is because the first two digits after the decimal point are the "tenths" and "hundredths", while after that is "thousandths"
+                let afterPoint = answer.substring(pointLoc + 3, answer.length).replace(/\B(?<=(^(\d{3})+))/g, ","); //After the first two digits after the decimal point
                 let total = beforePoint;
-
+     
                 if (midPoint != '') { //Adds the decimal point only if it is needed
                     total += '.' + midPoint;
                     if (afterPoint != '') { //Adds the comma after "midPoint" and the rest only if they are needed
                         total += ',' + afterPoint;
                     }
-                }
+                }*/
+                let afterPoint = answer.substring(pointLoc, answer.length);
+                let total = beforePoint + afterPoint;
+    
                 formattedSpan.innerHTML = total;
             }
         }
