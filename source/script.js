@@ -36,11 +36,14 @@ function setMetaData(value){
 
 //fieldProperties.CHOICES[0] = new Choice(0, 0, "Hi");
 
-/*function testing(message) {
+function testing(message) {
     console.log(message);
-    infoDiv.innerHTML = message;
-}*/
+    infoDiv.innerHTML += "<br>" + message;
+}
+
 //*/
+
+
 
 // Find the input element
 var buttons = document.querySelectorAll('input[name="opt"]');
@@ -55,7 +58,7 @@ var timerDisp = document.querySelector('#timerdisp');
 var unitDisp = document.querySelector('#unitdisp');
 var numButtons = buttons.length;
 
-var infoDiv = document.querySelector('#info');
+//var infoDiv = document.querySelector('#info');
 
 var fieldType = fieldProperties.FIELDTYPE;
 var appearance = fieldProperties.APPEARANCE;
@@ -112,9 +115,9 @@ if(currentAnswer == null){ //This is so if the enumerator/respondents swipes bac
 }
 
 if (leftoverTime == null) {
+    checkComplete(currentAnswer);
     startTime = Date.now();
     timeLeft = timeStart;
-    checkComplete(currentAnswer);
 }
 else if (leftoverTime <= 0) {
     goToNextField();
@@ -122,7 +125,6 @@ else if (leftoverTime <= 0) {
 else {
     timeLeft = parseInt(leftoverTime);
     startTime = Date.now() - (timeStart - timeLeft);
-    
 }
 unitDisp.innerHTML = unit;
 
@@ -245,16 +247,17 @@ else { //A text, integer, or decimal field
     textBox.oninput = function () {
         formGroup.classList.remove('has-error');
         controlMessage.innerHTML = '';
-        currentAnswer = textBox.value.toString();
+        currentAnswer = textBox.value;
 
         if (appearance.includes('show_formatted')) {
+            let ansString = currentAnswer.toString();
             let pointLoc = currentAnswer.indexOf('.');
 
             if (pointLoc == -1) {
-                formattedSpan.innerHTML = currentAnswer.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                formattedSpan.innerHTML = ansString.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             }
             else {
-                let beforePoint = answer.substring(0, pointLoc).replace(/\B(?=(\d{3})+(?!\d))/g, ","); //Before the decimal point
+                let beforePoint = ansString.substring(0, pointLoc).replace(/\B(?=(\d{3})+(?!\d))/g, ","); //Before the decimal point
     
                 //The part below adds commas to the numbers after the decimal point. Unfortunately, a lookbehind assersion breaks the JS in iOS right now, so this has been commented out for now.
                 /*let midPoint = answer.substring(pointLoc + 1, pointLoc + 3); //The first two digits after the decimal point; this is because the first two digits after the decimal point are the "tenths" and "hundredths", while after that is "thousandths"
@@ -267,7 +270,7 @@ else { //A text, integer, or decimal field
                         total += ',' + afterPoint;
                     }
                 }*/
-                let afterPoint = answer.substring(pointLoc, answer.length);
+                let afterPoint = ansString.substring(pointLoc, ansString.length);
                 let total = beforePoint + afterPoint;
     
                 formattedSpan.innerHTML = total;
