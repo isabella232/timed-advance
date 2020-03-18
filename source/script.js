@@ -148,6 +148,7 @@ if ((fieldType == 'select_one') || (fieldType == 'select_multiple')) {
         let choiceValue = choices[i].CHOICE_VALUE;
         choiceValues.push(choiceValue);
         if (choices[i].CHOICE_SELECTED) {
+            buttons[i].checked = true;
             currentAnswer.push(choiceValue);
         }
     }
