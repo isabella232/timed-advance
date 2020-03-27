@@ -1,11 +1,7 @@
-# Timed advance (in alpha)
-
-*This plug-in is currently being tested, but has so far worked well.*
-
+# Timed advance
 
 ![Quick appearance](extras/preview-images/quick.png)  
 *select_one* with "quick" *appearance*
-
 
 | numeric | select_one | select_multiple |
 | --- | --- | --- |
@@ -13,9 +9,11 @@
 
 ## Description
 
-This plug-in sets the field to auto-advance after a set period of time has passed, displaying that timer. It supports all five plug-in field types.
+This field plug-in makes a field auto-advance to the next screen after a configurable period of time has passed. A countdown of remaining time is displayed on screen.
 
-If a respondent attempts to go back to a field with this plug-in that has already been completed, the field will auto-advance (unless parameter 4 is equal to `1` and there was time left, see **Parameters** below).
+If a user attempts to return to a field with this field plug-in that has already been completed, the field will auto-advance (unless parameter 4 is equal to `1` and there was time left, see **Parameters** below).
+
+See supported field types below.
 
 ## Default SurveyCTO feature support
 
@@ -42,7 +40,7 @@ If a respondent attempts to go back to a field with this plug-in that has alread
 
 ## How to use
 
-**To use this plug-in as-is**, just download the [timedadvance.fieldplugin.zip](timedadvance.fieldplugin.zip) file from this repo, and attach it to your form.
+**To use this field plug-in as-is**, just download the [timedadvance.fieldplugin.zip](timedadvance.fieldplugin.zip) file from this repo, and attach it to your form.
 
 To create your own field plug-in using this as a template, follow these steps:
 
@@ -52,10 +50,10 @@ To create your own field plug-in using this as a template, follow these steps:
     * **Note:** be sure to update the `manifest.json` file as well.
 
 1. Zip the updated contents of the `source` directory.
-1. Rename the .zip file to *yourpluginname*.fieldplugin.zip (replace *yourpluginname* with the name you want to use for your plug-in).
+1. Rename the .zip file to *yourpluginname*.fieldplugin.zip (replace *yourpluginname* with the name you want to use for your field plug-in).
 1. You may then attach your new .fieldplugin.zip file to your form as normal.
 
-**Important:** When using on a `select_one` or `select_multiple` field, you need to include a choice with the value of `-99`. This choice will be hidden by the plug-in, but it will be selected if the time runs out without a choice selected.
+**Important:** When using on a `select_one` or `select_multiple` field, you need to include a choice with the value of `-99`. This choice will be hidden by the field plug-in, but it will be selected if the time runs out without a choice selected.
 
 ## Parameters
 There are four parameters, but all of them are optional:
