@@ -15,6 +15,8 @@ If a user attempts to return to a field with this field plug-in that has already
 
 See supported field types below.
 
+[![Download now](extras/download-button.png)](https://github.com/surveycto/launch-sms/raw/master/timedadvance.fieldplugin.zip)
+
 ## Default SurveyCTO feature support
 
 | Feature / Property | Support |
