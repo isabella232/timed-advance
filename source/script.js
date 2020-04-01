@@ -43,7 +43,10 @@ function testing(message) {
 
 //*/
 
-
+var testingDiv = document.querySelector('#testing');
+function testing(text) {
+    testingDiv.innerHTML += text + '<br>';
+}
 
 // Find the input element
 var buttons = document.querySelectorAll('input[name="opt"]');
@@ -66,7 +69,7 @@ var parameters = fieldProperties.PARAMETERS;
 var numParam = parameters.length;
 var leftoverTime;
 var error = false;
-var complete = false;
+var complete;
 var currentAnswer;
 
 var startTime; //This will get an actual value when the timer starts in startStopTimer();
@@ -77,9 +80,10 @@ var missed = -99; //Default, may be changed
 var timeLeft; //Starts this way for the display.
 var timePassed = 0; //Time passed so far
 
+
 switch (numParam) {
     case 4:
-        if(parameters[3].value == 1){
+        if (parameters[3].value == 1) {
             leftoverTime = getMetaData();
         }
     case 3:
@@ -106,27 +110,20 @@ switch (numParam) {
     case 1:
         timeStart = parameters[0].value * 1000; //Time limit on each field in milliseconds\
 }
+unitDisp.innerHTML = unit;
 
-
-currentAnswer = fieldProperties.CURRENT_ANSWER;
-
-if(currentAnswer == null){ //This is so if the enumerator/respondents swipes backward then forward, the timer does not reset.
-    leftoverTime = getMetaData(); //Metadata is how much time was previously left on the timer for this field
-}
-
-if (leftoverTime == null) {
-    checkComplete(currentAnswer);
-    startTime = Date.now();
-    timeLeft = timeStart;
-}
-else if (leftoverTime <= 0) {
+if ((leftoverTime != null) && (leftoverTime <= 0)) {
+    testing("Go to next field, 4");
+    complete = true;
     goToNextField();
 }
-else {
-    timeLeft = parseInt(leftoverTime);
-    startTime = Date.now() - (timeStart - timeLeft);
-}
-unitDisp.innerHTML = unit;
+
+testing("Leftover time: " + leftoverTime);
+testing("Current answer: " + currentAnswer);
+
+
+
+
 
 
 if ((fieldType == 'select_one') || (fieldType == 'select_multiple')) {
@@ -143,6 +140,7 @@ if ((fieldType == 'select_one') || (fieldType == 'select_multiple')) {
             buttons[i].type = "checkbox";
         }
 
+
         buttons[i].onchange = change;
 
         let choiceValue = choices[i].CHOICE_VALUE;
@@ -152,6 +150,7 @@ if ((fieldType == 'select_one') || (fieldType == 'select_multiple')) {
             currentAnswer.push(choiceValue);
         }
     }
+    establishTimeLeft();
 
     var missedChoice = choiceValues.indexOf(String(missed));
     if (missedChoice == -1) {
@@ -182,7 +181,12 @@ if ((fieldType == 'select_one') || (fieldType == 'select_multiple')) {
             }
         }
         currentAnswer = selectedButtons.join(' ');
-        setAnswer(currentAnswer);
+        testing("Set answer 1, complete status: " + complete);
+
+        if (complete == false) { //This IF statement is added so if swiping back and quickly selecting a new answer, the value of the field will not be changed
+            setAnswer(currentAnswer);
+        }
+
         // If the appearance is 'quick', then also progress to the next field
         if (appearance.includes("quick") == true) {
             goToNextField();
@@ -205,6 +209,8 @@ if ((fieldType == 'select_one') || (fieldType == 'select_multiple')) {
     }
 }
 else { //A text, integer, or decimal field
+    currentAnswer = fieldProperties.CURRENT_ANSWER;
+    establishTimeLeft();
     if (fieldType == 'integer') {
         textBox.inputmode = 'numeric';
         textBox.type = 'number';
@@ -231,6 +237,7 @@ else { //A text, integer, or decimal field
 
     function clearAnswer() {
         textBox.value = '';
+        testing("Set answer 2");
         setAnswer();
         timePassed = 0;
     }
@@ -259,7 +266,7 @@ else { //A text, integer, or decimal field
             }
             else {
                 let beforePoint = ansString.substring(0, pointLoc).replace(/\B(?=(\d{3})+(?!\d))/g, ","); //Before the decimal point
-    
+
                 //The part below adds commas to the numbers after the decimal point. Unfortunately, a lookbehind assersion breaks the JS in iOS right now, so this has been commented out for now.
                 /*let midPoint = answer.substring(pointLoc + 1, pointLoc + 3); //The first two digits after the decimal point; this is because the first two digits after the decimal point are the "tenths" and "hundredths", while after that is "thousandths"
                 let afterPoint = answer.substring(pointLoc + 3, answer.length).replace(/\B(?<=(^(\d{3})+))/g, ","); //After the first two digits after the decimal point
@@ -273,11 +280,12 @@ else { //A text, integer, or decimal field
                 }*/
                 let afterPoint = ansString.substring(pointLoc, ansString.length);
                 let total = beforePoint + afterPoint;
-    
+
                 formattedSpan.innerHTML = total;
             }
         }
 
+        testing("Set answer 3");
         setAnswer(currentAnswer);
     }
 }
@@ -307,14 +315,42 @@ function handleRequiredMessage(message) {
     handleConstraintMessage(message)
 }
 
+function establishTimeLeft() { //This checks the current answer and leftover time, and either auto-advances if there is no time left, or establishes how much time is left.
+    if ((leftoverTime == null) || isNaN(leftoverTime)) {
+        complete = false;
+        testing("Mark 1")
+        checkComplete(currentAnswer);
+        startTime = Date.now();
+        timeLeft = timeStart;
+    }
+    else if (isNaN(leftoverTime)) {
+        testing("Mark 2")
+        checkComplete(currentAnswer);
+        startTime = Date.now();
+        timeLeft = timeStart;
+    }
+    else {
+        complete = false;
+        testing("Mark 2")
+        timeLeft = parseInt(leftoverTime);
+        startTime = Date.now() - (timeStart - timeLeft);
+    }
+}
+
 function checkComplete(cur) {
+    testing("Checking if complete based on " + cur)
     if (Array.isArray(cur)) {
         if (cur.length != 0) {
+            testing("Going to next field, 2");
             goToNextField();
         }
     }
     else if (cur != null) {
+        testing("Going to next field, 3");
         goToNextField();
+    }
+    else{
+        complete = false;
     }
 }
 
@@ -331,6 +367,7 @@ function timer() {
         timerDisp.innerHTML = String(Math.ceil(timeLeft / round));
 
         if ((currentAnswer == null) || (Array.isArray(currentAnswer) && (currentAnswer.length == 0))) {
+            testing("Set answer 4");
             setAnswer(missed);
         }
         setMetaData(0);
