@@ -13,7 +13,7 @@ This field plug-in makes a field auto-advance to the next screen after a configu
 
 If a user attempts to return to a field with this field plug-in that has already been completed, the field will auto-advance (unless parameter 4 is equal to `1` and there was time left, see **Parameters** below).
 
-See supported field types below.
+See supported field types below. This field plug-in does not yet have the extended HTML suppport present in the [baseline-select_one field plug-in](https://github.com/surveycto/baseline-select_one).
 
 [![Download now](extras/download-button.png)](https://github.com/surveycto/launch-sms/raw/master/timedadvance.fieldplugin.zip)
 
