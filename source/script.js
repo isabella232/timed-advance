@@ -43,10 +43,6 @@ function testing(message) {
 
 //*/
 
-var testingDiv = document.querySelector('#testing');
-function testing(text) {
-    testingDiv.innerHTML += text + '<br>';
-}
 
 // Find the input element
 var buttons = document.querySelectorAll('input[name="opt"]');
@@ -112,19 +108,10 @@ switch (numParam) {
 }
 unitDisp.innerHTML = unit;
 
-if ((leftoverTime != null) && (leftoverTime <= 0)) {
-    testing("Go to next field, 4");
+if ((leftoverTime != null) && (leftoverTime <= 0)) { //True if all time has run out if it is okay to have leftover time
     complete = true;
     goToNextField();
 }
-
-testing("Leftover time: " + leftoverTime);
-testing("Current answer: " + currentAnswer);
-
-
-
-
-
 
 if ((fieldType == 'select_one') || (fieldType == 'select_multiple')) {
     currentAnswer = [];
@@ -181,7 +168,6 @@ if ((fieldType == 'select_one') || (fieldType == 'select_multiple')) {
             }
         }
         currentAnswer = selectedButtons.join(' ');
-        testing("Set answer 1, complete status: " + complete);
 
         if (complete == false) { //This IF statement is added so if swiping back and quickly selecting a new answer, the value of the field will not be changed
             setAnswer(currentAnswer);
@@ -237,7 +223,6 @@ else { //A text, integer, or decimal field
 
     function clearAnswer() {
         textBox.value = '';
-        testing("Set answer 2");
         setAnswer();
         timePassed = 0;
     }
@@ -285,7 +270,6 @@ else { //A text, integer, or decimal field
             }
         }
 
-        testing("Set answer 3");
         setAnswer(currentAnswer);
     }
 }
@@ -317,36 +301,34 @@ function handleRequiredMessage(message) {
 
 function establishTimeLeft() { //This checks the current answer and leftover time, and either auto-advances if there is no time left, or establishes how much time is left.
     if ((leftoverTime == null) || isNaN(leftoverTime)) {
-        complete = false;
-        testing("Mark 1")
         checkComplete(currentAnswer);
         startTime = Date.now();
         timeLeft = timeStart;
     }
     else if (isNaN(leftoverTime)) {
-        testing("Mark 2")
         checkComplete(currentAnswer);
         startTime = Date.now();
         timeLeft = timeStart;
     }
     else {
         complete = false;
-        testing("Mark 2")
         timeLeft = parseInt(leftoverTime);
         startTime = Date.now() - (timeStart - timeLeft);
     }
 }
 
 function checkComplete(cur) {
-    testing("Checking if complete based on " + cur)
     if (Array.isArray(cur)) {
         if (cur.length != 0) {
-            testing("Going to next field, 2");
+            complete = true;
             goToNextField();
+        }
+        else{
+            complete = false;
         }
     }
     else if (cur != null) {
-        testing("Going to next field, 3");
+        complete = true;
         goToNextField();
     }
     else{
@@ -367,7 +349,6 @@ function timer() {
         timerDisp.innerHTML = String(Math.ceil(timeLeft / round));
 
         if ((currentAnswer == null) || (Array.isArray(currentAnswer) && (currentAnswer.length == 0))) {
-            testing("Set answer 4");
             setAnswer(missed);
         }
         setMetaData(0);
