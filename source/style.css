@@ -9,13 +9,13 @@
 }
 
 .timer{
+    background-color: #990000;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 52px;
+    font-size: 20pt;
     margin-left: auto;
     margin-right: auto;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #ffffff;
-    font-size: 20pt;
-    background-color: #990000;
-    height: 52px;
 }
 
 .timer td{
@@ -24,30 +24,31 @@
 
 .hint {
     /* add style rules here to change how the hint appears */
-    margin: .5rem 0;
     color: rgba(0,0,0,.65);
     font-style: italic;
+    margin: .5rem 0;
 }
 
 .form-control { /*Input box*/
-    border-radius: 0!important;
-    box-shadow: none;
-    display: block;
-    width: 95%;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
     background-color: #fff;
     background-image: none;
     border: 1px solid #ccc;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;overflow: hidden;
+    border-radius: 0!important;
+    box-shadow: none;
+    display: block;
+    font: inherit;
+    font-family: inherit;
+    font-size: 14px;
+    height: 20px;
+    line-height: 1.42857143;
+    margin: 0;
+    padding: 6px 12px;
+    outline: none;
+    overflow: hidden;
     overflow-wrap: break-word;
     resize: horizontal;
-    height: 20px;
-    outline: none;
-    font-family: inherit;
-    font: inherit;
-    margin: 0;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    width: 95%;
 }
 
 .form-control:focus { /*Input box when focused*/
@@ -58,8 +59,8 @@
 .field-number-formatted{
     display: inline-block;
     font-weight: 400;
-    padding: 5px 10px 2px;
     margin-bottom: 0px;
+    padding: 5px 10px 2px;
 }
 
 /* 
@@ -90,12 +91,12 @@
 /* choice container layout */
 
 .choice-container {
-    display: flex;
     align-items: baseline;
+    display: flex;
 }
 .choice-input {
-    margin: 0 .5rem;
     cursor: pointer;
+    margin: 0 .5rem;
 }
 .choice-label {
     cursor: pointer;
@@ -108,8 +109,8 @@
     cursor: default;
 }
 .choice-input:disabled + .choice-label {
-    opacity: .5;
     cursor: default;
+    opacity: .5;
 }
 
 /* choices with images */
@@ -121,8 +122,8 @@
 .android-collect .choice-label,
 .ios-collect .choice-label {
     display: flex;
-    flex-wrap: wrap;
     flex-grow: 1;
+    flex-wrap: wrap;
     justify-content: center;
 }
 .android-collect .choice-label-text,
@@ -149,8 +150,8 @@
 }
 .appearance-quick .quick-appearance-icon {
     display: block;
-    float: right;
     fill: rgba(0,0,0,.65);
+    float: right;
     height: 1em;
     width: 1em;
 }
@@ -158,10 +159,10 @@
 /* 'minimal' appearance */
 
 #select-dropdown-container {
-    display: none;
-    width: 100%;
-    height: 2rem;
     border: 1px solid #2EA3CF;
+    display: none;
+    height: 2rem;
+    width: 100%;
 }
 
 /*
@@ -175,10 +176,10 @@
 }
 
 .has-error em.control-message {
-    font-weight: 100;
     background: #f56954;
-    display: block;
-    width: 96%;
     color: #FFF;
+    display: block;
+    font-weight: 100;
     padding: 5px 10px;
+    width: 96%;
 }
