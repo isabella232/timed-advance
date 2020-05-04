@@ -255,9 +255,9 @@ if ((fieldType === 'select_one') || (fieldType === 'select_multiple')) {
   var missedChoice = choiceValues.indexOf(String(missed))
   if (missedChoice === -1) {
     error = true
-    const labelDiv = document.querySelector('#label')
-    labelDiv.style.color = '#ff0000'
+    const labelDiv = document.querySelector('.label')
     labelDiv.innerHTML = 'Error! The form needs to have "' + missed + '" as one of the choice values.'
+    labelDiv.style.color = '#ff0000'
   } else {
     var passDiv = document.querySelector('#choicevalue' + missed)
     passDiv.style.display = 'none'
