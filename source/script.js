@@ -1,5 +1,5 @@
 /* class Choice {
-  constructor(value, index, label, selected, image) {
+  constructor (value, index, label, selected, image) {
     this.CHOICE_VALUE = value
     this.CHOICE_INDEX = index
     this.CHOICE_LABEL = label
@@ -9,39 +9,40 @@
 }
 
 var fieldProperties = {
-  "CHOICES": [],
-  "APPEARANCE": ["quick"],
-  "FIELDTYPE": "integer",
-  "PARAMETERS": [
+  CHOICES: [],
+  APPEARANCE: ['quick'],
+  FIELDTYPE: 'integer',
+  PARAMETERS: [
     {
-      "key": "duration",
-      "value": 10
+      key: 'duration',
+      value: 10
     },
     {
-      "key": "unit",
-      "value": "s"
+      key: 'unit',
+      value: 's'
     }
   ],
-  "CURRENT_ANSWER": undefined,
-  "METADATA": 9000
+  CURRENT_ANSWER: undefined,
+  METADATA: 9000
 }
 
-function getMetaData(){
+function getMetaData () {
   return fieldProperties.METADATA
 }
 
-function setMetaData(value){
+function setMetaData (value) {
   fieldProperties.METADATA = value
 }
 
-// fieldProperties.CHOICES[0] = new Choice(0, 0, "Hi")
+// fieldProperties.CHOICES[0] = new Choice(0, 0, 'Hi')
 
-function testing(message) {
+function testing (message) {
   console.log(message)
-  infoDiv.innerHTML += "<br>" + message
+  infoDiv.innerHTML += '<br>' + message
 }
 
 // */
+/* global */
 
 function cursorToEnd (el) { // Moves cursor to end of text in text box (incondistent in non-text fields)
   if (typeof el.selectionStart === 'number') {
@@ -322,7 +323,7 @@ if ((fieldType === 'select_one') || (fieldType === 'select_multiple')) {
         if (midPoint != '') { // Adds the decimal point only if it is needed
           total += '.' + midPoint
           if (afterPoint != '') { // Adds the comma after "midPoint" and the rest only if they are needed
-            total += ',' + afterPoint
+          total += ',' + afterPoint
           }
         } */
         const afterPoint = ansString.substring(pointLoc, ansString.length)
@@ -339,3 +340,7 @@ if ((fieldType === 'select_one') || (fieldType === 'select_multiple')) {
 if (!error) {
   setInterval(timer, 1)
 }
+
+
+
+
