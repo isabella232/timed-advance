@@ -77,19 +77,19 @@ For parameter 2, you can use the following display units:
 
 For example, if you would like the field to move forward after 20 seconds, you can use this *appearance*:
 
-    timedadvance(duration=20)
+    custom-timedadvance(duration=20)
 
 If you would like the time to be displayed in milliseconds, you can use this *appearance*:
 
-    timedadvance(duration=20, unit='ms')
+    custom-timedadvance(duration=20, unit='ms')
 
 If the field is of type *select_one*, you would like it to have the `quick` appearance, and the field should last 15 seconds, you can use this *appearance*:
 
-    quick timedadvance(duration=15)
+    quick custom-timedadvance(duration=15)
 
 If you would like the respondent to have 15 seconds to complete the field, but they can return to it later to change their answer with their remaining time, you can use this *appearance*:
 
-    quick timedadvance(duration=15, unit='s', pass=-99, continue=1)
+    quick custom-timedadvance(duration=15, unit='s', pass=-99, continue=1)
 
 ## More resources
 
