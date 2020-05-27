@@ -9,6 +9,8 @@
 
 ## Description
 
+*Requires at least Android 7 or iOS 13 to work in SurveyCTO Collect mobile.*
+
 This field plug-in makes a field auto-advance to the next screen after a configurable period of time has passed. A countdown of remaining time is displayed on screen.
 
 If a user attempts to return to a field with this field plug-in that has already been completed, the field will auto-advance (unless parameter 4 is equal to `1` and there was time left, see **Parameters** below).
