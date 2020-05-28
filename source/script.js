@@ -1,167 +1,3 @@
-/* class Choice {
-  constructor (value, index, label, selected, image) {
-    this.CHOICE_VALUE = value
-    this.CHOICE_INDEX = index
-    this.CHOICE_LABEL = label
-    this.CHOICE_SELECTED = selected
-    this.CHOICE_IMAGE = image
-  }
-}
-
-var fieldProperties = {
-  CHOICES: [],
-  APPEARANCE: ['quick'],
-  FIELDTYPE: 'integer',
-  PARAMETERS: [
-    {
-      key: 'duration',
-      value: 10
-    },
-    {
-      key: 'unit',
-      value: 's'
-    }
-  ],
-  CURRENT_ANSWER: undefined,
-  METADATA: 9000
-}
-
-function getMetaData () {
-  return fieldProperties.METADATA
-}
-
-function setMetaData (value) {
-  fieldProperties.METADATA = value
-}
-
-// fieldProperties.CHOICES[0] = new Choice(0, 0, 'Hi')
-
-function testing (message) {
-  console.log(message)
-  infoDiv.innerHTML += '<br>' + message
-}
-
-// */
-/* global */
-
-function cursorToEnd (el) { // Moves cursor to end of text in text box (incondistent in non-text fields)
-  if (typeof el.selectionStart === 'number') {
-    el.selectionStart = el.selectionEnd = el.value.length
-  } else if (typeof el.createTextRange !== 'undefined') {
-    el.focus()
-    var range = el.createTextRange()
-    range.collapse(false)
-    range.select()
-  }
-}
-
-function handleConstraintMessage (message) {
-  formGroup.classList.add('has-error')
-  controlMessage.innerHTML = message
-}
-
-function handleRequiredMessage (message) {
-  handleConstraintMessage(message)
-}
-
-function establishTimeLeft () { // This checks the current answer and leftover time, and either auto-advances if there is no time left, or establishes how much time is left.
-  if ((leftoverTime == null) || isNaN(leftoverTime)) {
-    checkComplete(currentAnswer)
-    startTime = Date.now()
-    timeLeft = timeStart
-  } else if (isNaN(leftoverTime)) {
-    checkComplete(currentAnswer)
-    startTime = Date.now()
-    timeLeft = timeStart
-  } else {
-    complete = false
-    timeLeft = parseInt(leftoverTime)
-    startTime = Date.now() - (timeStart - timeLeft)
-  }
-}
-
-function checkComplete (cur) {
-  if (Array.isArray(cur)) {
-    if (cur.length !== 0) {
-      complete = true
-      goToNextField()
-    } else {
-      complete = false
-    }
-  } else if (cur != null) {
-    complete = true
-    goToNextField()
-  } else {
-    complete = false
-  }
-}
-
-function timer () {
-  if (!complete) {
-    timePassed = Date.now() - startTime
-    timeLeft = timeStart - timePassed
-  }
-
-  if (timeLeft < 0) { // Timer ended
-    complete = true
-    timeLeft = 0
-    timerDisp.innerHTML = String(Math.ceil(timeLeft / round))
-
-    if ((currentAnswer == null) || (Array.isArray(currentAnswer) && (currentAnswer.length === 0))) {
-      setAnswer(missed)
-    }
-    setMetaData(0)
-    goToNextField()
-  }
-  setMetaData(timeLeft)
-
-  timerDisp.innerHTML = String(Math.ceil(timeLeft / round))
-}
-
-// Save the user's response (update the current answer)
-function change () {
-  const selectedButtons = []
-  for (let i = 0; i < numButtons; i++) {
-    if (buttons[i].checked) {
-      selectedButtons.push(choices[i].CHOICE_VALUE)
-    }
-  }
-  currentAnswer = selectedButtons.join(' ')
-
-  if (complete === false) { // This IF statement is added so if swiping back and quickly selecting a new answer, the value of the field will not be changed
-    setAnswer(currentAnswer)
-  }
-
-  // If the appearance is 'quick', then also progress to the next field
-  if (appearance.includes('quick') === true) {
-    goToNextField()
-  }
-}
-
-function clearAnswer () {
-  if ((fieldType === 'select_one') || (fieldType === 'select_multiple')) {
-    for (const b of buttons) {
-      b.checked = false
-    }
-  } else {
-    textBox.value = ''
-  }
-  setAnswer()
-  timePassed = 0
-}
-
-function setFocus () {
-  if ((fieldType !== 'select_one') && (fieldType !== 'select_multiple')) {
-    textBox.focus()
-
-    if (!fieldProperties.READONLY) {
-      if (window.showSoftKeyboard) {
-        window.showSoftKeyboard()
-      }
-    } // End not read-only
-  } // End not s_o or s_m
-} // End setFocus
-
 /* global getMetaData, setMetaData, setAnswer, goToNextField, fieldProperties */
 
 // Find the input element
@@ -341,6 +177,120 @@ if (!error) {
   setInterval(timer, 1)
 }
 
+function cursorToEnd (el) { // Moves cursor to end of text in text box (incondistent in non-text fields)
+  if (typeof el.selectionStart === 'number') {
+    el.selectionStart = el.selectionEnd = el.value.length
+  } else if (typeof el.createTextRange !== 'undefined') {
+    el.focus()
+    var range = el.createTextRange()
+    range.collapse(false)
+    range.select()
+  }
+}
 
+function handleConstraintMessage (message) {
+  formGroup.classList.add('has-error')
+  controlMessage.innerHTML = message
+}
 
+function handleRequiredMessage (message) {
+  handleConstraintMessage(message)
+}
 
+function establishTimeLeft () { // This checks the current answer and leftover time, and either auto-advances if there is no time left, or establishes how much time is left.
+  if ((leftoverTime == null) || isNaN(leftoverTime)) {
+    checkComplete(currentAnswer)
+    startTime = Date.now()
+    timeLeft = timeStart
+  } else if (isNaN(leftoverTime)) {
+    checkComplete(currentAnswer)
+    startTime = Date.now()
+    timeLeft = timeStart
+  } else {
+    complete = false
+    timeLeft = parseInt(leftoverTime)
+    startTime = Date.now() - (timeStart - timeLeft)
+  }
+}
+
+function checkComplete (cur) {
+  if (Array.isArray(cur)) {
+    if (cur.length !== 0) {
+      complete = true
+      goToNextField()
+    } else {
+      complete = false
+    }
+  } else if (cur != null) {
+    complete = true
+    goToNextField()
+  } else {
+    complete = false
+  }
+}
+
+function timer () {
+  if (!complete) {
+    timePassed = Date.now() - startTime
+    timeLeft = timeStart - timePassed
+  }
+
+  if (timeLeft < 0) { // Timer ended
+    complete = true
+    timeLeft = 0
+    timerDisp.innerHTML = String(Math.ceil(timeLeft / round))
+
+    if ((currentAnswer == null) || (Array.isArray(currentAnswer) && (currentAnswer.length === 0))) {
+      setAnswer(missed)
+    }
+    setMetaData(0)
+    goToNextField()
+  }
+  setMetaData(timeLeft)
+
+  timerDisp.innerHTML = String(Math.ceil(timeLeft / round))
+}
+
+// Save the user's response (update the current answer)
+function change () {
+  const selectedButtons = []
+  for (let i = 0; i < numButtons; i++) {
+    if (buttons[i].checked) {
+      selectedButtons.push(choices[i].CHOICE_VALUE)
+    }
+  }
+  currentAnswer = selectedButtons.join(' ')
+
+  if (complete === false) { // This IF statement is added so if swiping back and quickly selecting a new answer, the value of the field will not be changed
+    setAnswer(currentAnswer)
+  }
+
+  // If the appearance is 'quick', then also progress to the next field
+  if (appearance.includes('quick') === true) {
+    goToNextField()
+  }
+}
+
+function clearAnswer () {
+  if ((fieldType === 'select_one') || (fieldType === 'select_multiple')) {
+    for (const b of buttons) {
+      b.checked = false
+    }
+  } else {
+    textBox.value = ''
+  }
+  setAnswer()
+  timePassed = 0
+}
+
+function setFocus () {
+  if ((fieldType !== 'select_one') && (fieldType !== 'select_multiple')) {
+    textBox.focus()
+
+    if (!fieldProperties.READONLY) {
+      if (window.showSoftKeyboard) {
+        window.showSoftKeyboard()
+      }
+    } // End not read-only
+  } // End not s_o or s_m
+} // End setFocus
