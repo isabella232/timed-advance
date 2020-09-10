@@ -9,6 +9,8 @@
 
 ## Description
 
+*Most of the functions of this field plug-in have been taken over by the [timed-choice field plug-in](https://github.com/surveycto/timed-choice). If you would like to time a* select_one *or* select_multiple *field, use the the timed-choice field plug-in instead. If you are timing a* text, integer, *or* decimal *type field, continue to use this field plug-in.*
+
 *Requires at least Android 7 or iOS 13 to work in SurveyCTO Collect mobile.*
 
 This field plug-in makes a field auto-advance to the next screen after a configurable period of time has passed. A countdown of remaining time is displayed on screen.
