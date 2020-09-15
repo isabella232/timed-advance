@@ -9,40 +9,27 @@
 
 ## Description
 
-*Requires at least Android 7 or iOS 13 to work in SurveyCTO Collect mobile.*
+*Most of the functionality of this field plug-in have been taken over by the [timed-choice field plug-in](https://github.com/surveycto/timed-choice). If you would like to time a select_one or select_multiple field, use the the timed-choice field plug-in instead. If you are timing a text, integer, or decimal type field, continue to use this field plug-in.*
 
-This field plug-in makes a field auto-advance to the next screen after a configurable period of time has passed. A countdown of remaining time is displayed on screen.
-
-If a user attempts to return to a field with this field plug-in that has already been completed, the field will auto-advance (unless parameter 4 is equal to `1` and there was time left, see **Parameters** below).
+*Requires at least Android 7 or iOS 13 to work on SurveyCTO Collect.*
 
 See supported field types below. This field plug-in does not yet have the extended HTML suppport present in the [baseline-select_one field plug-in](https://github.com/surveycto/baseline-select_one).
 
 [![Download now](extras/download-button.png)](https://github.com/surveycto/timed-advance/raw/master/timedadvance.fieldplugin.zip)
 
-## Default SurveyCTO feature support
+### Features
 
-| Feature / Property | Support |
-| --- | --- |
-| Supported field type(s) | `text`, `integer`, `decimal`, `select_one`, `select_multiple`|
-| Default values | Yes |
-| Custom constraint message | Yes |
-| Custom required message | Yes |
-| Read only | No |
-| media:image | Yes |
-| media:audio | Yes |
-| media:video | Yes |
-| `numbers` appearance | Yes (`text` only) |
-| `numbers_decimal` appearance | Yes (`text` only) |
-| `numbers_phone` appearance | Yes (`text` only) |
-| `show_formatted` appearance | Yes (`text`, `integer`, and `decimal` only) |
-| `quick` appearance | Yes (`select_one` only) |
-| `minimal` appearance | No |
-| `compact` appearance | No |
-| `compact-#` appearance | No |
-| `quickcompact` appearance | No |
-| `quickcompact-#` appearance | No |
+* Time a *text*, *integer*, *decimal*, *select_one*, or *select_multiple* type field
+* Auto-advance after time runs out
+* Auto-advance if enumerator/respondent attempts to return to the field (can be changed with parameter 4, see [Parameters](#paramters) below)
+
+### Data format
+
+If an answer is entered/selected before time runs out, then the answer entered or the value of the choice selected will be set as the field value. However, if nothing is entered or selected, then the field will have a value of `-99`. This can be changed with the `pass` parameter.
 
 ## How to use
+
+### Getting started
 
 **To use this field plug-in as-is**, just download the [timedadvance.fieldplugin.zip](timedadvance.fieldplugin.zip) file from this repo, and attach it to your form.
 
@@ -59,8 +46,11 @@ To create your own field plug-in using this as a template, follow these steps:
 
 **Important:** When using on a `select_one` or `select_multiple` field, you need to include a choice with the value of `-99`. This choice will be hidden by the field plug-in, but it will be selected if the time runs out without a choice selected.
 
-## Parameters
-There are four parameters, but all of them are optional:
+### Parameters
+
+The order of the parameters matters. For example, you cannot specify the `continue` parameter without first specifying the first 3 parameters.
+
+There are four parameters, but all of them are optional.  
 |**Number**|**Name**|**Description**|**Default**|
 |---|---|---|---|
 |1.|`duration`|Time in seconds before the field auto-advances. No matter what unit is used for parameter 2, you should always enter the duration in seconds.|`10`|
@@ -92,6 +82,29 @@ If the field is of type *select_one*, you would like it to have the `quick` appe
 If you would like the respondent to have 15 seconds to complete the field, but they can return to it later to change their answer with their remaining time, you can use this *appearance*:
 
     quick custom-timedadvance(duration=15, unit='s', pass=-99, continue=1)
+
+### Default SurveyCTO feature support
+
+| Feature / Property | Support |
+| --- | --- |
+| Supported field type(s) | `text`, `integer`, `decimal`, `select_one`, `select_multiple`|
+| Default values | Yes |
+| Custom constraint message | Yes |
+| Custom required message | Yes |
+| Read only | No |
+| media:image | Yes |
+| media:audio | Yes |
+| media:video | Yes |
+| `numbers` appearance | Yes (`text` only) |
+| `numbers_decimal` appearance | Yes (`text` only) |
+| `numbers_phone` appearance | Yes (`text` only) |
+| `show_formatted` appearance | Yes (`text`, `integer`, and `decimal` only) |
+| `quick` appearance | Yes (`select_one` only) |
+| `minimal` appearance | No |
+| `compact` appearance | No |
+| `compact-#` appearance | No |
+| `quickcompact` appearance | No |
+| `quickcompact-#` appearance | No |
 
 ## More resources
 
