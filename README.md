@@ -9,15 +9,15 @@
 
 ## Description
 
-*Most of the functions of this field plug-in have been taken over by the [timed-choice field plug-in](https://github.com/surveycto/timed-choice). If you would like to time a* select_one *or* select_multiple *field, use the the timed-choice field plug-in instead. If you are timing a* text, integer, *or* decimal *type field, continue to use this field plug-in.*
+* *Most of the functionality of this field plug-in have been taken over by the [timed-choice field plug-in](https://github.com/surveycto/timed-choice). If you would like to time a* select_one *or* select_multiple *field, use the the timed-choice field plug-in instead. If you are timing a* text, integer, *or* decimal *type field, continue to use this field plug-in.*
 
-*Requires at least Android 7 or iOS 13 to work in SurveyCTO Collect mobile.*
+* *Requires at least Android 7 or iOS 13 to work on SurveyCTO Collect.*
 
 See supported field types below. This field plug-in does not yet have the extended HTML suppport present in the [baseline-select_one field plug-in](https://github.com/surveycto/baseline-select_one).
 
 [![Download now](extras/download-button.png)](https://github.com/surveycto/timed-advance/raw/master/timedadvance.fieldplugin.zip)
 
-### Feature list
+### Features
 
 * Time a *text*, *integer*, *decimal*, *select_one*, or *select_multiple* type field
 * Auto-advance after time runs out
